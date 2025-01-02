@@ -1,13 +1,14 @@
 import { useDispatch } from "react-redux";
-import { deleteTodo, toggleTodo, updateTodo } from "../redux/actions";
+// import { deleteTodo, toggleTodo, updateTodo } from "../redux/actions";
 import { useState } from "react";
+import todoSlice from "../redux/todoSlice";
 
 function Item({ dataItem }) {
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
   const [name, setName] = useState(dataItem.name);
   const handleCheck = () => {
-    dispatch(toggleTodo({ id: dataItem.id }));
+    dispatch(todoSlice.actions.toggleTodo({ id: dataItem.id }));
   };
   const onChangeName = (e) => {
     const value = e.target?.value;
@@ -20,7 +21,7 @@ function Item({ dataItem }) {
 
   const handleSave = () => {
     dispatch(
-      updateTodo({
+      todoSlice.actions.updateTodo({
         ...dataItem,
         name: name,
       })
@@ -35,7 +36,7 @@ function Item({ dataItem }) {
   };
 
   const handleDelete = () => {
-    dispatch(deleteTodo(dataItem.id));
+    dispatch(todoSlice.actions.deleteTodo(dataItem.id));
   };
 
   return (
@@ -72,7 +73,14 @@ function Item({ dataItem }) {
           </>
         ) : (
           <>
-            <button onClick={() => setIsEdit(true)}>Edit</button>
+            <button
+              onClick={() => {
+                setName(dataItem.name);
+                setIsEdit(true);
+              }}
+            >
+              Edit
+            </button>
             <button onClick={handleDelete}>Delete</button>
           </>
         )}

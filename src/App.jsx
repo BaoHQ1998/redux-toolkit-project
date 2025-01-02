@@ -5,7 +5,6 @@ import { todoListSelector } from "./redux/selector";
 
 function App() {
   const toDoList = useSelector(todoListSelector);
-  console.log(toDoList);
   return (
     <div>
       <Form />

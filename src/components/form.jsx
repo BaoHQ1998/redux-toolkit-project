@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../redux/actions";
 import { v4 as uuidV4 } from "uuid";
+import todoSlice from "../redux/todoSlice";
 
 function Form() {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ function Form() {
 
   const handleAddTodo = () => {
     dispatch(
-      addTodo({
+      todoSlice.actions.addTodo({
         id: uuidV4(),
         name: todo,
         completed: false,
